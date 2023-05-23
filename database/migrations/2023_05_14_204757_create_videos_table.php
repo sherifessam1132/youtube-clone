@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('video_filename')->nullable();
             $table->enum('visiblity',['public','unlisted','private']);
             $table->boolean('allow_votes')->default(true);
+            $table->boolean('allow_comments')->default(false);
             $table->integer('process_percentage')->nullable();
             $table->softDeletes();
             $table->timestamps();

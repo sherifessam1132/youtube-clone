@@ -13,7 +13,9 @@ import { createApp } from 'vue';
  * to use in your application's views. An example is included for you.
  */
 
-const app = createApp({});
+const app = createApp({
+    // data:window.youtube
+});
 
 import VideoUploadComponent from './components/VideoUploadComponent.vue';
 app.component('video-upload', VideoUploadComponent);

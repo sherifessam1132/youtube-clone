@@ -15,8 +15,12 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware'=>['auth']],function(){
-    Route::get('upload/',[VideoUploadController::class,'index']);
-    Route::post('video',[VideoController::class,'store']);
+    Route::get('upload',[VideoUploadController::class,'index']);
+    Route::post('upload',[VideoUploadController::class,'store']);
+
+    Route::post('videos',[VideoController::class,'store']);
+    Route::put('videos/{video}',[VideoController::class,'update']);
+
     Route::get('channel/{channel}/edit',[ChannelSettingsController::class,'edit']);
     Route::put('channel/{channel}/edit',[ChannelSettingsController::class,'update']);
 });

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Video extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $guraded=[];
+    protected $guarded=[];
     public function getRouteKeyName()
     {
         return 'uid';
