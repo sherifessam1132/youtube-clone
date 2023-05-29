@@ -20,6 +20,10 @@ class Channel extends Model
     {
         return 'slug';
     }
+    public function getImage()
+    {
+       return $this->image_filename ? asset($this->image_filename):asset('storage/images/default.png');
+    }
     public function user() :BelongsTo
     {
         return $this->belongsTo(User::class);

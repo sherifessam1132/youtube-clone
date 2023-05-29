@@ -34,12 +34,17 @@ class UploadImage implements ShouldQueue
     public function handle()
     {
         // dd('here');
+        try{
         $path= storage_path() . '/uploads/' . $this->fileId;
         $fileName=$path .'.png';
-        Image::make($path)->encode('png')->fit(40, 40, function ($constraint) {
-            $constraint->upsize();
-        })->save();
+
+        // Image::make($path)->encode('png')->fit(40, 40, function ($constraint) {
+        //     $constraint->upsize();
+        // })->save();
         $this->channel->image_filename=$fileName;
         $this->channel->save();
+    }catch(\Exception $e){
+        dd($e);
+    }
     }
 }

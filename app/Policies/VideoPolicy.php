@@ -30,7 +30,7 @@ class VideoPolicy
      */
     public function view(User $user, Video $video)
     {
-        //
+        return $video->channel->user_id === $user->id;
     }
 
     /**
@@ -65,7 +65,7 @@ class VideoPolicy
      */
     public function delete(User $user, Video $video)
     {
-        //
+        return $video->channel->user_id == $user->id;
     }
 
     /**

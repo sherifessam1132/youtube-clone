@@ -8,6 +8,27 @@ use Illuminate\Http\Request;
 
 class VideoController extends Controller
 {
+    public function index(Request $request)
+    {
+       $videos=$request->user()->videos()->latestFirst()->paginate(5);
+        return view('video.index',['videos'=>$videos]);
+    }
+    public function show(Video $video )
+    {
+       return view('video.show',[
+        'video'=>$video
+       ]);
+    }
+    public function edit(Request $request,Video $video)
+    {
+        // authorize
+        $this->authorize('view',$video);
+
+        return view('video.edit',[
+            'video'=>$video
+        ]);
+        # code...
+    }
     public function store(Request $request)
     {
         $uid=uniqid(true);
@@ -44,6 +65,12 @@ class VideoController extends Controller
             return response()->json(null,200);
         }
 
+        return redirect()->back();
+    }
+    public function destroy(Video $video)
+    {
+        $this->authorize('delete',$video);
+        $video->delete();
         return redirect()->back();
     }
 }

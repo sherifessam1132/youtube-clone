@@ -14,6 +14,18 @@ class Video extends Model
     {
         return 'uid';
     }
+    public function scopeLatestFirst($query)
+    {
+        return $query->orderBy('created_at','desc');
+    }
+    public function votesAllowed()
+    {
+        return (bool) $this->allow_votes;
+    }
+    public function commentsAllowed()
+    {
+        return (bool) $this->allow_comments;
+    }
     public function channel()
     {
         return $this->belongsTo(Channel::class);
