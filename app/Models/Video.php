@@ -30,4 +30,19 @@ class Video extends Model
     {
         return $this->belongsTo(Channel::class);
     }
+    public function scopeLatestFirst($query)
+    {
+        return $query->orderBy('created_at','desc');
+    }
+    public function isProcessed()
+    {
+        return $this->processed;
+    }
+    public function getThumbnail()
+    {
+        if(!$this->isProcessed()){
+            return '';
+        }
+        return $this->video_filename;
+    }
 }
