@@ -1,10 +1,48 @@
 @extends('layouts.app')
+@push('css')
+    <style>
+        .video-placeholder{
+            position: relative;
+            background-color: #111;
+            padding-top: 56.25%;
+            width: 100%;
+            max-width: 100%;
+        }
+        .video-placeholder_header
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 14px;
+            transform: translateX(-50%)
+        }
+    </style>
+@endpush
+
+
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="card-header">Video Player</div>
+                <div class="card-header">
+                    @if($video->isPrivate() && Auth::check() && $video->ownedByUser(Auth::user()))
+                        <div class="alert alert-info">
+                            your video is currently private.only you can see it.
+                        </div>
+                    @endif
+                    @if($video->canBeAccessed(Auth::user()))
+                        show video player
+                    @endif
+
+                    @if(! $video->canBeAccessed(Auth::user()))
+                        <div class="video-placeholder">
+                            <div class="video-placeholder_header">
+                                this video is private
+                            </div>
+                        </div>
+                    @endif
+                </div>
                
 
            

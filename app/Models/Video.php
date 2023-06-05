@@ -14,7 +14,7 @@ class Video extends Model
     {
         return 'uid';
     }
-    public function scopeLatestFirst($query)
+    public function scopeLatestFirsts($query)
     {
         return $query->orderBy('created_at','desc');
     }
@@ -44,5 +44,24 @@ class Video extends Model
             return '';
         }
         return $this->video_filename;
+    }
+    public function isPrivate()
+    { 
+        return $this->visiblity === 'private' ;
+    }
+    public function ownedByUser(User $user)
+    {
+        return $user->id === $this->channel->user->id;
+    }
+    public function canBeAccessed(User $user= null)
+    {
+        if(!$user && $this->isPrivate()){
+            return false ;
+        }
+        if($user && $this->isPrivate() && ($user->id !== $this->channel->user_id))
+        {
+            return false ;
+        }
+        return true;
     }
 }
